@@ -1,0 +1,60 @@
+﻿@page
+
+@model IndexModel;
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <form method="post">
+        <div class="form-group">
+            <label for="birthYear">Year:</label>
+        </div>
+        <div class="form-group">
+            <input type="number" id="birthYear" name="birthYear" required class="form-control">
+        </div>
+        <div class="form-group  mt-3">
+            <button type="submit" class="btn btn-primary">Get Zodiac</button>
+            <button type="button" class="btn btn-success" id="clearButton">Clear</button>
+        </div>
+    </form>  
+</div>
+
+@if(!string.IsNullOrEmpty(Model.ZodiacName)){
+    <div class="container text-center" style="width:300px">
+        <div class="row">
+            <div class="col">
+                <div style="background:rgb(209, 226, 209)">
+                    <div style="color:rgb(16, 107, 16)">Your zodiak is <b>@Model.ZodiacName</b></div>
+                    <img src="@Model.ZodiacUrl" class="d-block mx-auto" alt="Zodiac Image">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if(!string.IsNullOrEmpty(Model.InvalidInput)){
+
+    <div class="container text-center" style="width:300px">
+        <div class="row">
+            <div class="col" id = "invalidateInput">               
+                    <div class="alert alert-danger" role="alert"><b>@Model.InvalidInput</b></div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    <script>
+        document.getElementById("clearButton").addEventListener("click", function () {
+            document.getElementById("birthYear").value = "";
+            var divToRemove = document.querySelector('div.container.text-center');        
+            if (divToRemove) {
+                divToRemove.remove();
+            }
+            
+        });
+    </script>
+}
+
